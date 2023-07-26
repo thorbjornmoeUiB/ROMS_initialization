@@ -146,7 +146,7 @@ ds_zeta_3d = np.zeros((1, 268, 402))
 ################################################################
 
 if plotting == 1:
-    X= np.matlib.repmat(np.linspace(0,x*1.5,x),30,1)
+    X = np.matlib.repmat(np.linspace(0,x*1.5,x),30,1)
     Y = - H
     r = rho(temp_2d,salt_2d,Y)
     
@@ -154,7 +154,7 @@ if plotting == 1:
     lvls = np.linspace(34.76,34.92,17)
     
     
-    fig = plt.figure(figsize=[8,6])
+    fig  = plt.figure(figsize=[8,6])
     grid = plt.GridSpec(1,1, hspace=0.15)
     
     ax1 = fig.add_subplot(grid[0, 0])
@@ -296,7 +296,7 @@ if create_input_file == 1:
     ncid.author               = Author
     
     ###############################################################################
-    ############################### - dimentions - ################################
+    ############################### - Dimensions - ################################
     ###############################################################################
     
     # Meridional: eta
@@ -310,7 +310,8 @@ if create_input_file == 1:
     xi_u                      = ncid.createDimension('xi_u',   y)
     xi_v                      = ncid.createDimension('xi_v',   y+1)
     xi_psi                    = ncid.createDimension('xi_psi', y)
-    
+
+    # z and time
     s_rho                     = ncid.createDimension('s_rho',  z)
     time                      = ncid.createDimension('time',   1)
     one                       = ncid.createDimension('one',    1)
