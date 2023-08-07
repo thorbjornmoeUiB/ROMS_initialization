@@ -16,4 +16,6 @@ The initial conditions in this example are entirely horizontally homogeneous, ch
 5. Boundary conditions/climatology/climatology nudging/forcing
 The boundary conditions, climatology, climatological nudging, and atmospheric forcing files are as simple as can be, reflecting the initial temperature/salinity/velocity fields, but can quite easily be changed to include specific boundary currents, heating, etc. 
 
+
+
 In addition to these preliminary files, a code for reducing model output, with a wide array of logical switches, is included.
