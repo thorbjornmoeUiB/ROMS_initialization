@@ -4,7 +4,6 @@ The files in "ROMS_initialization/Scripts_for_Iceland_Ideal" are examples/templa
 
 The directory includes (in the logical order for designing a model):
 1. Stretching:
-
 Script yielding the stretching vector used throughout all other files. Here the number of vertical layers is chosen. The standard can be found at: https://www.myroms.org/wiki/Vertical_S-coordinate#Vertical_Stretching_Functions (NB! remember to change this in the ocean.in/roms.in file)
 
 3. Grid:
