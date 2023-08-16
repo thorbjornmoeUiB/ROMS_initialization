@@ -17,4 +17,4 @@ The boundary conditions, climatology, climatological nudging, and atmospheric fo
 
 
 
-In addition to these preliminary files, a code for reducing model output, with a wide array of logical switches, is included.
+In addition to these preliminary files, a code for reducing model output, with a wide array of logical switches and a script with simple plotting procedures, are included.
