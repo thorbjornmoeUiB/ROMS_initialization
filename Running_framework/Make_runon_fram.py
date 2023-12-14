@@ -10,8 +10,6 @@ import os
 import shutil
 from GlobParam import *
 
-#VARNAME = '/cluster/projects/nn9608k/Iceland_Ideal/varinfo.dat'
-
 KEYWORDLIST=[['RUNNAME',"'PHD_ii_HH_V2'"], 
             ['RUNID',"'TEST1_new_params/TEST_FRAMEWORK'"]]
 
