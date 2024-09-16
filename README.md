@@ -20,6 +20,3 @@ The boundary conditions, climatology, climatological nudging, and atmospheric fo
 
 In addition to the general setup, files with global parameters ("GlobParam.py" is the most recent), a Python script that runs all other "Make_..." files, and a double-check script are included.
 Lastly, data files with 30-year averaged summer and winter profiles from the central Iceland Sea are included.
-
-
-In addition to these preliminary files, a code for reducing model output, with a wide array of logical switches and a script with simple plotting procedures, are included.
