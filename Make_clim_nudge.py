@@ -61,6 +61,7 @@ pNIJ_md             = GlobalParameters.pNIJ_md
 pIFSJ               = GlobalParameters.pIFSJ
 onslope             = GlobalParameters.onslope
 NIIC_EB             = GlobalParameters.NIIC_EB
+grad                = GlobalParameters.Gradient_bndry
 
 #Dim and plot switch
 x                   = np.shape(grid_ds['h'])[0]
@@ -278,7 +279,8 @@ if pIFSJ == 1:
         cbarax = plt.colorbar(c1)
         cbarax.set_label('nudging coefficient')
         
-    
+if grad==1:
+    empty_final_3d_momentum[:,:200,(y-nudge_cells):] = empty_final_3d_momentum[:,:200,(y-nudge_cells):]*2
 #%%
 if create_file == 1:
 
