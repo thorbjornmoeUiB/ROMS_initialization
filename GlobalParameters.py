@@ -56,7 +56,7 @@ class GlobalParameters(object):
     Imp_plot        = 1         # plotting the important figures from all scripts
     Create_files    = 1         # Create all the files
     create_grid     = 1         # only for grid file (making the grid takes a lot of time) Alternatives: 1 (=yes)      0 (=no)
-    Gradient_bndry  = 1
+    Gradient_bndry  = True      # gradient boundary condition on eastern boundary - used in paper for everything but reference
     
     ###############################################################################
     ############################# - Major parameters - ############################
