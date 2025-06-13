@@ -7,6 +7,8 @@ Created on Wed Jan 18 16:56:38 2023
 @author: thorbjornostenbymoe
 """
 """
+Very outdated - better to specify output in ocean.in file and neglect this. NCO package in Linux could also do much of this...
+
 Script for reducing size of output file, can surely be solved in the supercomputer 
 with nc.dump, but this gives a lot of choices....
 
@@ -27,9 +29,9 @@ import netCDF4 as nc
 """ NB - nothing outside of user options should have to be changed unless a new variable is added"""
 
 # file path - split up to fit with writing of new file
-Main_path   = '/Users/thorbjornostenbymoe/Desktop/Initialization_of_model/MODEL_SETUP/NEW_OUTPUT_HHH'
-Experiment  = '/MOD/pNIIC_NIJ/'
-Filename    = 'roms_avg_0004.nc.nosync'
+Main_path   = '../ouput'
+Experiment  = '/exp/'
+Filename    = 'roms_avg_0004.nc'
 
 ds          = nc.Dataset(Main_path+Experiment+Filename)
 
