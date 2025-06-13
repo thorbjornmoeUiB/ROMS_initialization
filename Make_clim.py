@@ -72,6 +72,7 @@ pNIJ_md         = GlobalParameters.pNIJ_md
 pIFSJ           = GlobalParameters.pIFSJ
 onslope         = GlobalParameters.onslope
 NIIC_EB         = GlobalParameters.NIIC_EB
+grad            = GlobalParameters.Gradient_bndry
 
 #Dims
 x               = np.shape(grid_ds['h'])[0]                             # dim meridional ~ 400 km   (1 km resolution)  
@@ -322,7 +323,29 @@ if pIFSJ == 1:  #could also be an 'if-statement' in last part, but I think this 
         plt.plot(np.linspace(0,x*res,x),ds_ubar_3d[0,:,-1])
     
 
+if grad:
+    ds_bdry = nc.Dataset(directory + GlobalParameters.bry_file)
 
+    # copy bndry file onto clim parameters
+
+    u_eb  = ds_bdry['u_east'][:]
+    ub_eb = ds_bdry['ubar_east'][:]
+    z_eb  = ds_bdry['zeta_east'][:]
+    T_eb  = ds_bdry['temp_east'][:]
+    S_eb  = ds_bdry['salt_east'][:]
+
+    # remove mask :(
+    u_eb[0,:,:5]=0
+    ub_eb[0,:5]=0
+    z_eb[0,:5]=0
+    T_eb[0,:,:5]=T_eb[0,:,6][:,np.newaxis]
+    S_eb[0,:,:5]=S_eb[0,:,6][:,np.newaxis]
+    
+    ds_u_4d[:,:,:,1150:] = u_eb[0,:,:][np.newaxis,:,:,np.newaxis]*np.ones([2,30,401,51])
+    salt_from_init[:,:,:,1150:] = S_eb[0,:,:][np.newaxis,:,:,np.newaxis]*np.ones([2,30,401,52])
+    temp_from_init[:,:,:,1150:] = T_eb[0,:,:][np.newaxis,:,:,np.newaxis]*np.ones([2,30,401,52])
+    
+    ds_ubar_3d[:,:,1150:] = ub_eb[0,:][np.newaxis,:,np.newaxis]*np.ones([2,401,51])
 ###############################################################################
 ################################ - make file - ################################
 ###############################################################################
