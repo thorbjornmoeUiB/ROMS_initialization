@@ -15,7 +15,7 @@ class GlobParam(object):
     ############################# - Directory paths - #############################
     ###############################################################################
 
-    common_dir      = '/Users/thorbjorn/Library/CloudStorage/OneDrive-UniversityofBergen/Documents/PhD/Iceland_Sea_Mod/New_Input_scripts/GITHUB/'                    # Home directory for the model
+    common_dir      = '.../Input_scripts/GITHUB/'                    # Home directory for the model
     EXP_dir         = common_dir + 'TEST/'     # Change for the slope configuration
     SubEXP_dir      = 'OUTFLOW/'                              # Change for experiments (e.g., IN_OUTFLOW)
     ref_dir         = 'REF/'                                    # Never change
@@ -63,9 +63,9 @@ class GlobParam(object):
     Imp_plot        = 1         # Plotting the important figures from "Make_*" scripts
     Create_files    = 1         # Create all the files (turn off when testing)
     create_grid     = 1         # Only for grid file (making the grid takes a lot of time) Alternatives: 1 (=yes)      0 (=no)
-    VarSlope        = 1         # Do we use VarSlo grid? 1 = yes, 0 = no
-    Tilted_shelf    = 0         # Include an inclined plane on the shelf. Alternatives: 1 (=yes)      0 (=no) (not included in paper)
-    x2_domain       = 1         # Is the domain doubled relative to original configuration of 600x400. if 1 (=yes) the domain is 1200x400
+    VarSlope        = 1         # Do we use VarSlo grid? 1 = yes, 0 = no                                                                     (both in paper)
+    Tilted_shelf    = 0         # Include an inclined plane on the shelf. Alternatives: 1 (=yes)      0 (=no)                                 (not included in paper)
+    x2_domain       = 1         # Is the domain doubled relative to original configuration of 600x400. if 1 (=yes) the domain is 1200x400     (1200x400 in paper)
     
     ###############################################################################
     ############################### - STEEPNESS - #################################
@@ -94,8 +94,8 @@ class GlobParam(object):
     # if all of these are = 0 then its a REF!
     
     #variable       #switch     # experiment name               # Explanation
-    pNIJ            = 1         # = Outflow                     # prescribed NIJ outflow in west
-    pNIIC           = 1         # = In- & Outflow               # prescribed NIIC inflow in west
+    pNIJ            = 0         # = Outflow                     # prescribed NIJ outflow in west
+    pNIIC           = 0         # = Inflow                      # prescribed NIIC inflow in west
     pNIIC_f         = 0         # = 2/3xInflow                  # prescribed NIIC inflow in west that is 2x faster than normal (pNIIC)
     pNIIC_w         = 0         # = 3/6cInflow                  # prescribed NIIC inflow in west that is warmer than normal (pNIIC)
     pIFSJ           = 0         # = not included in paper       # prescribed IFSJ outflow in EAST NB!
