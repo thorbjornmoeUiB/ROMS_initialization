@@ -23,11 +23,12 @@ Completely different set-ups can still use a large part of this script as a temp
 ################################ - Packages - #################################
 ###############################################################################
 
-import numpy as np
-import netCDF4 as nc
-import matplotlib.pyplot as plt
+from GlobalParameters import *
 import numpy.matlib as repmaty
-from GlobalParameters import *                # This is where I change user outputs now
+import matplotlib.pyplot as plt
+import netCDF4 as nc
+import numpy as np
+from scipy.ndimage import gaussian_filter
 
 print('###############################################################################')
 print('############################# - Making bry file - #############################')
@@ -97,6 +98,7 @@ pNIJ_md         = GlobalParameters.pNIJ_md
 pIFSJ           = GlobalParameters.pIFSJ
 onslope         = GlobalParameters.onslope
 NIIC_EB         = GlobalParameters.NIIC_EB
+grad            = GlobalParameters.Gradient_bndry
 
 #Dims
 x   = np.shape(grid_ds['h'])[0]                           # dim meridional ~ 400 km   (1 km resolution)  
@@ -426,6 +428,54 @@ if plotting == 1:
         plt.xlabel('distance north [km]')
         
         ubar_east_var = np.array([ubarc,ubarc])
+#%%
+if grad:
+    ds_grad = nc.Dataset(GlobalParameters.grad_fn) # load old simulation (these are not provided, but can now be copied from the respective boundary files in the data storage)
+    U, Ubar, Zeta, Temp, Salt = ds['u'], ds['ubar'], ds['temp'], ds['salt']
+    u,ubar,temp,salt = np.nanmean(U,axis=0),np.nanmean(Ubar,axis=0),np.nanmean(Temp,axis=0),np.nanmean(Salt,axis=0)
+
+    pp, X, Y = make_XY(grid_ds, z, x)
+    x_grad = GlobalParameters.grad_pos
+
+    #only choose positive velocities close to the slope (we want the "NIIC" to flow out)
+    u_eb = np.where((u[:, :, x_grad] > 0) & (X[:, :401] < 200), u[:, :, x_grad], 0)
+    ub_eb = np.where((ub[:, x_grad] > 0) & (X[0, :401] < 200), ub[:, x_grad], 0) 
+
+    T_eb = T[:, :, x_grad]
+    S_eb = S[:, :, x_grad]
+
+    # plot fields
+    plt.figure(figsize=[8, 2])
+    plt.contourf(X[:, :400], Y[:, :400, x1], u_eb[:, :400], cmap='RdBu_r', levels=np.arange(-0.16, 0.16, 0.01))
+    plt.colorbar()
+    #plt.xlim([100,200])
+
+    # make sure the volume transport is right!
+    def make_XY_vt(ds, zd, xd):                                    # get coordinates for plotting
+        stretch = stretch_ds['Cs_w'][:]                            # stretching
+        heighta = ds['h'][:, :]                                    # depth array
+    
+        bath = np.zeros((31, x, y))
+        for i in range(x):
+            for j in range(y):
+                # stretching * depth = sigma coordinates
+                bath[:, i, j] = heighta[i, j]*stretch
+    
+        X = repmaty.repmat(np.linspace(0, x, xd), zd, 1)
+        Y = bath
+    return(bath, X, Y)
+
+    pp, X1, Y1 = make_XY_vt(grid_ds, z+1, x)
+    
+    plt.figure(figsize=[8, 2])
+    VT = u_eb1*np.diff(Y1[:,:,0],axis=0)*1000
+    plt.contourf(X,Y[:,:,0],VT,cmap='Reds')
+    plt.colorbar()
+    plt.xlim([100,200])
+    
+    print(np.nansum(VT)/10**6)
+
+    
 
 #%%
 
@@ -606,23 +656,25 @@ if create_bry_file == 1:
     
     bry_time[:]         = bry_time_var
     
+
+    if grad:
+        salt_east[:,:,:]    = S_eb
+        temp_east[:,:,:]    = T_eb
+        u_east[:,:,:]       = u_eb
+        ubar_east[:,:]      = ub_eb
+    else:
+        salt_east[:,:,:]    = salt_east_var
+        temp_east[:,:,:]    = temp_east_var
+        u_east[:,:,:]       = u_east_var
+        ubar_east[:,:]      = ubar_east_var
     
-    salt_east[:,:,:]    = salt_east_var
     salt_west[:,:,:]    = salt_west_var
-    
-    temp_east[:,:,:]    = temp_east_var
     temp_west[:,:,:]    = temp_west_var
-    
-    
-    u_east[:,:,:]       = u_east_var
     u_west[:,:,:]       = u_west_var
         
     v_east[:,:,:]       = v_east_var
     v_west[:,:,:]       = v_west_var
     
-    
-    
-    ubar_east[:,:]      = ubar_east_var
     ubar_west[:,:]      = ubar_west_var
     
     vbar_east[:,:]      = vbar_east_var
