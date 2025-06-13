@@ -7,6 +7,10 @@ Created on Tue Aug  8 12:45:19 2023
 """
 
 """
+Note: Most of this code is very outdated and only necessary if you are new to plotting model data/ROMS
+
+
+
 This script includes a short template for plotting output from ROMS. 
 The script goes through:
     - Making and plotting the depth array (in rho coordinates)
@@ -92,10 +96,7 @@ if domain is constant in one dimension, this dimension can be neglected.
 The depth can be arbitrarily chosen to be negative or positive (*-1)
 """
 H = np.zeros([z_rho,y_rho,x_rho]) # depth array
-
-for y in range(y_rho): # loop over y
-    for x in range(x_rho): # loop over x
-        H[:,y,x] = h[y,x] * Cs_r #multiple depth at certain (x,y) point by stretching vector
+H[:,:,:] = h[np.newaxis,:,:]*Cs_r[:,np.newaxis,np.newaxis]
 
 #%%
 ###############################################################################
