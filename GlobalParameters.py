@@ -56,7 +56,9 @@ class GlobalParameters(object):
     Imp_plot        = 1         # plotting the important figures from all scripts
     Create_files    = 1         # Create all the files
     create_grid     = 1         # only for grid file (making the grid takes a lot of time) Alternatives: 1 (=yes)      0 (=no)
+    
     Gradient_bndry  = True      # gradient boundary condition on eastern boundary - used in paper for everything but reference
+    grad_fn         = '.../STEEP/pNIJ/roms_avg_0015.nc'
     
     ###############################################################################
     ############################# - Major parameters - ############################
@@ -69,6 +71,8 @@ class GlobalParameters(object):
     steepnes_factor = 7         # Steepness of slope            - Alternatives = 7 (steep)     15 (moderate)   (25 (mild slope))
     theta_s         = 7         # Layer distribution at surface - Always 7
     theta_b         = 14        # Layer distribution at bottom  - Alternatives = 2             14
+
+    grad_pos        = 1100      # position we take gradient boundary condition from, here chosen to be 1100km  east in old simulation
     
     ###############################################################################
     ########################## - Experiment composition - #########################
